@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout 
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/connectionsLayout" 
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:orientation="vertical"
+>
+		
+	<LinearLayout 
+		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content"
+		android:orientation="horizontal"	
+	>
+	
+		<TextView 
+			android:text="Date" 
+			android:layout_width="80dp" 
+			android:layout_height="wrap_content"			
+			android:textSize="7pt"		
+			android:textColor="#FFC4122F"
+			android:layout_marginLeft="10px" 
+		/>
+		
+		<TextView 
+			android:text="" 
+			android:id="@+id/connectionDate"
+			android:layout_width="wrap_content" 
+			android:layout_height="wrap_content"			
+			android:textSize="8pt"		
+			android:textStyle="bold"
+			android:textColor="#FF222222"
+		/>						
+			
+	</LinearLayout>
+	
+	<LinearLayout 
+		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content"
+		android:orientation="horizontal"
+	>
+	
+		<TextView 
+			android:text="Departure" 
+			android:layout_width="80dp" 
+			android:layout_height="wrap_content"			
+			android:textSize="7pt"		
+			android:textColor="#FFC4122F"
+			android:layout_marginLeft="10px" 
+		/>
+		
+		<TextView 
+			android:text="" 
+			android:id="@+id/connectionDeparture"
+			android:layout_width="70dp" 
+			android:layout_height="wrap_content"			
+			android:textSize="8pt"		
+			android:textStyle="bold"
+			android:textColor="#FF222222"
+		/>				
+		
+		<TextView 
+			android:text="Duration" 
+			android:layout_width="wrap_content" 
+			android:layout_height="wrap_content"			
+			android:textSize="7pt"		
+			android:layout_marginLeft="10px" 
+			android:textColor="#FFC4122F"
+		/>
+		
+		<TextView 
+			android:text="" 
+			android:id="@+id/connectionDuration"
+			android:layout_width="wrap_content" 
+			android:layout_height="wrap_content"			
+			android:textSize="8pt"		
+			android:textStyle="bold"
+			android:textColor="#FF222222"
+			android:layout_marginLeft="10px" 
+		/>					
+			
+	</LinearLayout>
+	
+	
+	<LinearLayout 
+		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content"
+		android:orientation="horizontal"
+	>
+	
+		<TextView 
+			android:text="Arrival" 
+			android:layout_width="80dp" 
+			android:layout_height="wrap_content"			
+			android:textSize="7pt"		
+			android:layout_marginLeft="10px" 
+			android:textColor="#FFC4122F"
+		/>
+		
+		<TextView 
+			android:text="" 
+			android:id="@+id/connectionArrival"
+			android:layout_width="70dp" 
+			android:layout_height="wrap_content"			
+			android:textSize="8pt"		
+			android:textStyle="bold"
+			android:textColor="#FF222222"
+		/>				
+		
+		<TextView 
+			android:text="Changes" 
+			android:layout_width="wrap_content" 
+			android:layout_height="wrap_content"			
+			android:textSize="7pt"		
+			android:textColor="#FFC4122F"
+			android:layout_marginLeft="10px" 
+		/>
+		
+		<TextView 
+			android:text="" 
+			android:id="@+id/connectionChanges"
+			android:layout_width="wrap_content" 
+			android:layout_height="wrap_content"			
+			android:textSize="8pt"		
+			android:textStyle="bold"
+			android:textColor="#FF222222"
+			android:layout_marginLeft="10px" 
+		/>							
+			
+	</LinearLayout>	
+
+</LinearLayout>
+

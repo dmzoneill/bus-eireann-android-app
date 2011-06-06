@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/buseireann/!svn/ver/2/BusEireann/src/ie/buseireann
+END
+Connection.java
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/buseireann/!svn/ver/2/BusEireann/src/ie/buseireann/Connection.java
+END
+ConnectionsActivity.java
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/buseireann/!svn/ver/2/BusEireann/src/ie/buseireann/ConnectionsActivity.java
+END
+ConnectionsAdapter.java
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/buseireann/!svn/ver/2/BusEireann/src/ie/buseireann/ConnectionsAdapter.java
+END
+EasySSLSocketFactory.java
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/buseireann/!svn/ver/2/BusEireann/src/ie/buseireann/EasySSLSocketFactory.java
+END
+EasyX509TrustManager.java
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/buseireann/!svn/ver/2/BusEireann/src/ie/buseireann/EasyX509TrustManager.java
+END
+Search.java
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/buseireann/!svn/ver/2/BusEireann/src/ie/buseireann/Search.java
+END
+WebHelper.java
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/buseireann/!svn/ver/2/BusEireann/src/ie/buseireann/WebHelper.java
+END
