@@ -1,315 +1,42 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout 
-	xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:padding="0dp"
-    android:background="#FFFFFFFF"
->
-
-	<LinearLayout 
-		xmlns:android="http://schemas.android.com/apk/res/android"
-	    android:orientation="vertical"
-	    android:layout_width="fill_parent"
-	    android:layout_height="70dp"
-	    android:background="@drawable/header"
-	    android:layout_marginBottom="5dp"
-	/>
-	
-	<LinearLayout 
-		xmlns:android="http://schemas.android.com/apk/res/android"
-	    android:orientation="vertical"
-	    android:layout_width="fill_parent"
-	    android:layout_height="wrap_content"
-	    android:layout_marginTop="0dp"
-	    android:layout_marginLeft="10dp"
-	    android:layout_marginRight="10dp"
-	    android:background="#FFF8981D"
-	    android:padding="5dp"
-	    android:layout_marginBottom="5dp"
-	>
-	
-		<TextView
-			xmlns:android="http://schemas.android.com/apk/res/android"
-			android:text="Route"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:textSize="14dp"
-			android:textColor="#FF222222"
-			android:textStyle="bold"
-		/>
-	
-	</LinearLayout>
-	
-	<LinearLayout 
-		xmlns:android="http://schemas.android.com/apk/res/android"
-	    android:orientation="vertical"
-	    android:layout_width="fill_parent"
-	    android:layout_height="fill_parent"
-	    android:layout_marginLeft="20dp"
-	    android:layout_marginRight="20dp"
-	    android:layout_marginBottom="0dp"
-	    android:layout_weight="1"
-	>
-	
-		<LinearLayout 
-			xmlns:android="http://schemas.android.com/apk/res/android"
-		    android:orientation="horizontal"
-		    android:layout_width="fill_parent"
-		    android:layout_height="fill_parent"
-		    android:layout_weight="1"	
-		    android:id="@+id/fromText"	  	    		    
-		>
-		
-			<TextView
-				xmlns:android="http://schemas.android.com/apk/res/android"
-				android:text="From"
-				android:textColor="#FFC4122F"
-				android:layout_width="fill_parent"
-				android:layout_height="wrap_content"
-				android:textSize="14dp"
-				android:layout_weight="2.5"
-				android:layout_gravity="center_vertical"
-			/>
-			
-			<EditText
-				xmlns:android="http://schemas.android.com/apk/res/android"
-				android:layout_width="fill_parent"
-				android:layout_height="wrap_content"
-				android:layout_weight="0.5"		
-				android:layout_gravity="center_vertical"
-				android:id="@+id/fromTextInput"	
-			/>
-		
-		</LinearLayout>
-		
-		<LinearLayout 
-			xmlns:android="http://schemas.android.com/apk/res/android"
-		    android:orientation="horizontal"
-		    android:layout_width="fill_parent"
-		    android:layout_height="fill_parent"
-		    android:layout_weight="1"	
-		    android:id="@+id/fromCombo"	  
-		    android:visibility="gone"  		    
-		>
-		
-			<TextView
-				xmlns:android="http://schemas.android.com/apk/res/android"
-				android:text="From"
-				android:textColor="#FFC4122F"
-				android:layout_width="fill_parent"
-				android:layout_height="wrap_content"
-				android:textSize="14dp"
-				android:layout_weight="2.5"
-				android:layout_gravity="center_vertical"
-			/>
-			
-			<Spinner			
-				xmlns:android="http://schemas.android.com/apk/res/android"
-				android:layout_width="fill_parent"
-				android:layout_height="45dp"
-				android:layout_weight="0.5"
-				android:layout_gravity="center_vertical"	
-				android:id="@+id/fromSpinnerInput"	
-			/>
-		
-		</LinearLayout>
-		
-		<LinearLayout 
-			xmlns:android="http://schemas.android.com/apk/res/android"
-		    android:orientation="horizontal"
-		    android:layout_width="fill_parent"
-		    android:layout_height="fill_parent"
-		    android:layout_weight="1"
-		    android:id="@+id/toText"
-		>
-		
-			<TextView
-				xmlns:android="http://schemas.android.com/apk/res/android"
-				android:text="To"
-				android:textColor="#FFC4122F"
-				android:layout_width="fill_parent"
-				android:layout_height="wrap_content"
-				android:textSize="14dp"
-				android:layout_weight="2.5"
-				android:layout_gravity="center_vertical"
-			/>
-			
-			<EditText
-				xmlns:android="http://schemas.android.com/apk/res/android"
-				android:layout_width="fill_parent"
-				android:layout_height="wrap_content"
-				android:layout_weight="0.5"	
-				android:layout_gravity="center_vertical"
-				android:id="@+id/toTextInput"			
-			/>
-		
-		</LinearLayout>
-		
-		<LinearLayout 
-			xmlns:android="http://schemas.android.com/apk/res/android"
-		    android:orientation="horizontal"
-		    android:layout_width="fill_parent"
-		    android:layout_height="fill_parent"
-		    android:layout_weight="1"
-		    android:id="@+id/toCombo"
-		    android:visibility="gone"
-		>
-		
-			<TextView
-				xmlns:android="http://schemas.android.com/apk/res/android"
-				android:text="To"
-				android:textColor="#FFC4122F"
-				android:layout_width="fill_parent"
-				android:layout_height="wrap_content"
-				android:textSize="14dp"
-				android:layout_weight="2.5"
-				android:layout_gravity="center_vertical"
-			/>
-			
-			<Spinner			
-				xmlns:android="http://schemas.android.com/apk/res/android"
-				android:layout_width="fill_parent"
-				android:layout_height="45dp"
-				android:layout_weight="0.5"
-				android:layout_gravity="center_vertical"	
-				android:id="@+id/toSpinnerInput"						
-			/>
-		
-		</LinearLayout>
-		
-	</LinearLayout>
-	
-	<LinearLayout 
-		xmlns:android="http://schemas.android.com/apk/res/android"
-	    android:orientation="vertical"
-	    android:layout_width="fill_parent"
-	    android:layout_height="wrap_content"
-	    android:layout_marginLeft="10dp"
-	    android:layout_marginRight="10dp"
-	    android:background="#FFF8981D"
-	    android:padding="5dp"
-	    android:layout_marginBottom="5dp"
-	>
-	
-		<TextView
-			xmlns:android="http://schemas.android.com/apk/res/android"
-			android:text="Time"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:textSize="14dp"
-			android:textColor="#FF222222"
-			android:textStyle="bold"
-		/>
-	
-	</LinearLayout>	
-	
-	<LinearLayout 
-		xmlns:android="http://schemas.android.com/apk/res/android"
-	    android:orientation="vertical"
-	    android:layout_width="fill_parent"
-	    android:layout_height="fill_parent"
-	    android:layout_marginLeft="20dp"
-	    android:layout_marginRight="20dp"
-	    android:layout_marginBottom="0dp"
-	    android:layout_weight="1"
-	>
-	
-		<LinearLayout 
-			xmlns:android="http://schemas.android.com/apk/res/android"
-		    android:orientation="horizontal"
-		    android:layout_width="fill_parent"
-		    android:layout_height="fill_parent"
-		    android:layout_weight="1"
-		>
-		
-			<TextView
-				xmlns:android="http://schemas.android.com/apk/res/android"
-				android:text="Date"
-				android:textColor="#FFC4122F"
-				android:layout_width="fill_parent"
-				android:layout_height="wrap_content"
-				android:textSize="14dp"
-				android:layout_weight="2.5"
-				android:layout_gravity="center_vertical"
-			/>
-			
-			<EditText
-				xmlns:android="http://schemas.android.com/apk/res/android"
-				android:layout_width="fill_parent"
-				android:layout_height="wrap_content"
-				android:layout_weight="0.5"	
-				android:id="@+id/dateDisplay"	
-				android:layout_gravity="center_vertical"	
-			/>
-		
-		</LinearLayout>
-		
-		<LinearLayout 
-			xmlns:android="http://schemas.android.com/apk/res/android"
-		    android:orientation="horizontal"
-		    android:layout_width="fill_parent"
-		    android:layout_height="fill_parent"
-		    android:layout_weight="1"		    
-		>
-		
-			<TextView
-				xmlns:android="http://schemas.android.com/apk/res/android"
-				android:text="Time"
-				android:textColor="#FFC4122F"
-				android:layout_width="fill_parent"
-				android:layout_height="wrap_content"
-				android:textSize="14dp"
-				android:layout_weight="2.5"
-				android:layout_gravity="center_vertical"
-			/>
-			
-			<EditText
-				xmlns:android="http://schemas.android.com/apk/res/android"
-				android:layout_width="fill_parent"
-				android:layout_height="wrap_content"
-				android:layout_weight="0.5"		
-				android:id="@+id/timeDisplay"	
-				android:layout_gravity="center_vertical"
-			/>
-		
-		</LinearLayout>
-		
-	</LinearLayout>
-				
-	<LinearLayout 
-		xmlns:android="http://schemas.android.com/apk/res/android"
-	    android:orientation="horizontal"
-	    android:layout_width="fill_parent"
-	    android:layout_height="70dp"
-	    android:background="@drawable/footer"
-	    android:paddingLeft="10dp"
-	    android:paddingTop="10dp"
-	>
-	
-		<Button
-			xmlns:android="http://schemas.android.com/apk/res/android"
-			android:text="Search connection"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:onClick="searchConnection"
-			android:id="@+id/searchButton"
-			android:layout_gravity="center_vertical|left"
-		/>
-		
-		<Button
-			xmlns:android="http://schemas.android.com/apk/res/android"
-			android:text="Reset search"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:onClick="resetSearch"
-			android:id="@+id/newSearchButton"
-			android:visibility="gone"
-			android:layout_marginLeft="10dp"
-			android:layout_gravity="center_vertical|left"
-		/>
-	
-	</LinearLayout>
-
+<?xml version='1.0' encoding='UTF-8'?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent" android:padding="0dp" android:background="#FFFFFFFF">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="70dp" android:background="@drawable/header" android:layout_marginBottom="5dp"/>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="0dp" android:layout_marginLeft="10dp" android:layout_marginRight="10dp" android:background="#FFF8981D" android:padding="5dp" android:layout_marginBottom="5dp">
+        <TextView xmlns:android="http://schemas.android.com/apk/res/android" android:text="Route" style="@style/BusLayoutTextView8"/>
+    </LinearLayout>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" style="@style/BusLayoutLinearLayout9">
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:id="@+id/fromText" style="@style/BusLayoutLinearLayout2">
+            <TextView xmlns:android="http://schemas.android.com/apk/res/android" android:text="From" style="@style/BusLayoutTextView1"/>
+            <EditText xmlns:android="http://schemas.android.com/apk/res/android" android:id="@+id/fromTextInput" style="@style/BusLayoutEditText3"/>
+        </LinearLayout>
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:id="@+id/fromCombo" style="@style/BusLayoutLinearLayout10">
+            <TextView xmlns:android="http://schemas.android.com/apk/res/android" android:text="From" style="@style/BusLayoutTextView1"/>
+            <Spinner xmlns:android="http://schemas.android.com/apk/res/android" android:id="@+id/fromSpinnerInput" style="@style/BusLayoutSpinner11"/>
+        </LinearLayout>
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:id="@+id/toText" style="@style/BusLayoutLinearLayout2">
+            <TextView xmlns:android="http://schemas.android.com/apk/res/android" android:text="To" style="@style/BusLayoutTextView1"/>
+            <EditText xmlns:android="http://schemas.android.com/apk/res/android" android:id="@+id/toTextInput" style="@style/BusLayoutEditText3"/>
+        </LinearLayout>
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:id="@+id/toCombo" style="@style/BusLayoutLinearLayout10">
+            <TextView xmlns:android="http://schemas.android.com/apk/res/android" android:text="To" style="@style/BusLayoutTextView1"/>
+            <Spinner xmlns:android="http://schemas.android.com/apk/res/android" android:id="@+id/toSpinnerInput" style="@style/BusLayoutSpinner11"/>
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="10dp" android:layout_marginRight="10dp" android:background="#FFF8981D" android:padding="5dp" android:layout_marginBottom="5dp">
+        <TextView xmlns:android="http://schemas.android.com/apk/res/android" android:text="Time" style="@style/BusLayoutTextView8"/>
+    </LinearLayout>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" style="@style/BusLayoutLinearLayout9">
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" style="@style/BusLayoutLinearLayout2">
+            <TextView xmlns:android="http://schemas.android.com/apk/res/android" android:text="Date" style="@style/BusLayoutTextView1"/>
+            <EditText xmlns:android="http://schemas.android.com/apk/res/android" android:id="@+id/dateDisplay" style="@style/BusLayoutEditText3"/>
+        </LinearLayout>
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" style="@style/BusLayoutLinearLayout2">
+            <TextView xmlns:android="http://schemas.android.com/apk/res/android" android:text="Time" style="@style/BusLayoutTextView1"/>
+            <EditText xmlns:android="http://schemas.android.com/apk/res/android" android:id="@+id/timeDisplay" style="@style/BusLayoutEditText3"/>
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="70dp" android:background="@drawable/footer" android:paddingLeft="10dp" android:paddingTop="10dp">
+        <Button xmlns:android="http://schemas.android.com/apk/res/android" android:text="Search connection" android:layout_width="wrap_content" android:layout_height="wrap_content" android:onClick="searchConnection" android:id="@+id/searchButton" android:layout_gravity="center_vertical|left"/>
+        <Button xmlns:android="http://schemas.android.com/apk/res/android" android:text="Reset search" android:layout_width="wrap_content" android:layout_height="wrap_content" android:onClick="resetSearch" android:id="@+id/newSearchButton" android:visibility="gone" android:layout_marginLeft="10dp" android:layout_gravity="center_vertical|left"/>
+    </LinearLayout>
 </LinearLayout>
