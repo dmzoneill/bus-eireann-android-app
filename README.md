@@ -1,5 +1,9 @@
 # Bus Eireann Android App
 
+<p align="center">
+  <img src=".github/logo.png" alt="bus-eireann-android-app logo" width="128" />
+</p>
+
 An unofficial Bus Éireann journey planner for Android.
 
 ## What it does
