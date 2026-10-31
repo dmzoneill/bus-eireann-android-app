@@ -362,6 +362,12 @@ public class WebHelper
 			i++;
 													
 			
+			// Only follow "later" links that stay on the journey planner host.
+			if ( !nextUrl.startsWith( "http://194.106.151.94/" ) )
+			{
+				break;
+			}
+
 			if ( this.getRequest( nextUrl ) == true )
 			{
 				
