@@ -31,38 +31,100 @@ import org.apache.http.params.HttpParams;
 import org.apache.http.params.HttpProtocolParams;
 import org.apache.http.protocol.HTTP;
 
-public class WebHelper {
+public final class WebHelper {
+  /** HTTP port. */
+  private static final int HTTP_PORT = 80;
+
+  /** HTTPS port. */
+  private static final int HTTPS_PORT = 443;
+
+  /** Max pooled connections. */
+  private static final int MAX_CONNECTIONS = 30;
+
+  /** Index of the value attribute in a split hidden input tag. */
+  private static final int HIDDEN_VALUE_INDEX = 5;
+
+  /** Max later-result pages to follow. */
+  private static final int MAX_LATER_PAGES = 7;
+
+  /** Result column: departure. */
+  private static final int COL_DEPARTURE = 3;
+
+  /** Result column: arrival. */
+  private static final int COL_ARRIVAL = 5;
+
+  /** Result column: duration. */
+  private static final int COL_DURATION = 7;
+
+  /** Result column: changes. */
+  private static final int COL_CHANGES = 8;
+
+  /** The instance. */
+  private static WebHelper instance = null;
+
   // web pages
+  /** The baseUrl. */
   private String baseUrl;
+
+  /** The sequenceUrl. */
   private String sequenceUrl;
 
   // browser
+  /** The userAgent. */
   private String userAgent;
 
   // http stuff
+  /** The cookies. */
   private List<Cookie> cookies;
+
+  /** The httpclient. */
   private DefaultHttpClient httpclient;
+
+  /** The response. */
   private HttpResponse response;
+
+  /** The entity. */
   private HttpEntity entity;
+
+  /** The postFields. */
   private List<NameValuePair> postFields;
 
   // result holders
+  /** The lastError. */
   private String lastError;
+
+  /** The error. */
   private boolean error;
+
+  /** The result. */
   private String result;
+
+  /** The output. */
   private boolean output;
 
   // data
+  /** The ambiguous. */
   private boolean ambiguous;
+
+  /** The connectionsList. */
   private boolean connectionsList;
+
+  /** The toList. */
   private ArrayList<String[]> toList;
+
+  /** The fromList. */
   private ArrayList<String[]> fromList;
+
+  /** The connections. */
   private ArrayList<Connection> connections;
+
+  /** The lastTo. */
   private String lastTo;
+
+  /** The lastFrom. */
   private String lastFrom;
 
   // this instance
-  private static WebHelper instance = null;
 
   private WebHelper() {
     this.baseUrl = "http://194.106.151.94/jplan/bin/query.exe/en?OK#focus";
@@ -72,15 +134,17 @@ public class WebHelper {
     this.initHTTPClient();
   }
 
+  /** Init h t t p client. */
   public void initHTTPClient() {
     try {
       SchemeRegistry schemeRegistry = new SchemeRegistry();
-      schemeRegistry.register(new Scheme("http", PlainSocketFactory.getSocketFactory(), 80));
-      schemeRegistry.register(new Scheme("https", new EasySSLSocketFactory(), 443));
+      schemeRegistry.register(new Scheme("http", PlainSocketFactory.getSocketFactory(), HTTP_PORT));
+      schemeRegistry.register(new Scheme("https", new EasySSLSocketFactory(), HTTPS_PORT));
 
       HttpParams params = new BasicHttpParams();
-      params.setParameter(ConnManagerPNames.MAX_TOTAL_CONNECTIONS, 30);
-      params.setParameter(ConnManagerPNames.MAX_CONNECTIONS_PER_ROUTE, new ConnPerRouteBean(30));
+      params.setParameter(ConnManagerPNames.MAX_TOTAL_CONNECTIONS, MAX_CONNECTIONS);
+      params.setParameter(
+          ConnManagerPNames.MAX_CONNECTIONS_PER_ROUTE, new ConnPerRouteBean(MAX_CONNECTIONS));
       params.setParameter(CoreProtocolPNames.USE_EXPECT_CONTINUE, false);
       HttpProtocolParams.setVersion(params, HttpVersion.HTTP_1_1);
 
@@ -93,7 +157,7 @@ public class WebHelper {
     }
   }
 
-  private boolean getRequest(String url) {
+  private boolean getRequest(final String url) {
     try {
       HttpGet httpget = new HttpGet(url);
       httpget.setHeader("User-Agent", this.userAgent);
@@ -107,7 +171,7 @@ public class WebHelper {
     }
   }
 
-  private boolean postRequest(String url, List<NameValuePair> fields) {
+  private boolean postRequest(final String url, final List<NameValuePair> fields) {
     try {
       HttpPost reqPost = new HttpPost(url);
       reqPost.setHeader("User-Agent", this.userAgent);
@@ -122,11 +186,16 @@ public class WebHelper {
     }
   }
 
+  /**
+   * Get result.
+   *
+   * @return the result
+   */
   public String getResult() {
     return this.result;
   }
 
-  private String removeHTML(String html) {
+  private String removeHTML(final String html) {
     html = html.trim();
     html = html.replaceAll("\\<.*?>", "");
     html = html.trim();
@@ -153,7 +222,7 @@ public class WebHelper {
       StringBuilder str = new StringBuilder();
       String line = null;
       while ((line = reader.readLine()) != null) {
-        if (this.output == true) {
+        if (this.output) {
           Log.e("WebHelper", line);
         }
         str.append(line);
@@ -168,11 +237,21 @@ public class WebHelper {
     this.result = html;
   }
 
+  /**
+   * Get last error.
+   *
+   * @return the result
+   */
   public String getLastError() {
     this.error = false;
     return this.lastError;
   }
 
+  /**
+   * Get instance.
+   *
+   * @return the result
+   */
   public static WebHelper getInstance() {
     if (WebHelper.instance == null) {
       WebHelper.instance = new WebHelper();
@@ -181,44 +260,45 @@ public class WebHelper {
     return WebHelper.instance;
   }
 
+  /** Prepare select boxes. */
   public void prepareSelectBoxes() {
     this.toList = new ArrayList<String[]>();
     this.fromList = new ArrayList<String[]>();
 
     Pattern selectRegex =
         Pattern.compile(
-            "<select[^>]*>(.*?)</select>",
+            "<select[^>]*+>((?:[^<]++|<(?!/select>))*+)</select>",
             Pattern.CASE_INSENSITIVE | Pattern.DOTALL | Pattern.MULTILINE);
     Matcher selects = selectRegex.matcher(this.result);
 
     Pattern fromHiddenRegex =
         Pattern.compile(
-            "<input type=\"hidden\" name=\"REQ0JourneyStopsS0K\" value=\"(.*?)\">",
+            "<input type=\"hidden\" name=\"REQ0JourneyStopsS0K\" value=\"([^\"]*+)\">",
             Pattern.CASE_INSENSITIVE | Pattern.DOTALL | Pattern.MULTILINE);
     Matcher fromHidden = fromHiddenRegex.matcher(this.result);
 
     while (fromHidden.find()) {
       String[] hidden = fromHidden.group().split("\"");
-      String[] data = {hidden[5], this.lastFrom};
+      String[] data = {hidden[HIDDEN_VALUE_INDEX], this.lastFrom};
       this.fromList.add(data);
     }
 
     Pattern toHiddenRegex =
         Pattern.compile(
-            "<input type=\"hidden\" name=\"REQ0JourneyStopsZ0K\" value=\"(.*?)\">",
+            "<input type=\"hidden\" name=\"REQ0JourneyStopsZ0K\" value=\"([^\"]*+)\">",
             Pattern.CASE_INSENSITIVE | Pattern.DOTALL | Pattern.MULTILINE);
     Matcher toHidden = toHiddenRegex.matcher(this.result);
 
     while (toHidden.find()) {
       String[] hidden = toHidden.group().split("\"");
-      String[] data = {hidden[5], this.lastTo};
+      String[] data = {hidden[HIDDEN_VALUE_INDEX], this.lastTo};
       this.toList.add(data);
     }
 
     while (selects.find()) {
       Pattern optionRegex =
           Pattern.compile(
-              "<option[^>]*>(.*?)</option>",
+              "<option[^>]*+>((?:[^<]++|<(?!/option>))*+)</option>",
               Pattern.CASE_INSENSITIVE | Pattern.DOTALL | Pattern.MULTILINE);
       Matcher options = optionRegex.matcher(selects.group());
 
@@ -249,7 +329,7 @@ public class WebHelper {
 
     Pattern formRegex =
         Pattern.compile(
-            "<form[^>]*>", Pattern.CASE_INSENSITIVE | Pattern.DOTALL | Pattern.MULTILINE);
+            "<form[^>]*+>", Pattern.CASE_INSENSITIVE | Pattern.DOTALL | Pattern.MULTILINE);
     Matcher form = formRegex.matcher(this.result);
 
     while (form.find()) {
@@ -258,7 +338,17 @@ public class WebHelper {
     }
   }
 
-  public boolean searchConnection(String date, String from, String to, String time) {
+  /**
+   * Search connection.
+   *
+   * @param date the date
+   * @param from the from
+   * @param to the to
+   * @param time the time
+   * @return the result
+   */
+  public boolean searchConnection(
+      final String date, final String from, final String to, final String time) {
     this.ambiguous = false;
     this.connectionsList = false;
 
@@ -282,7 +372,7 @@ public class WebHelper {
 
     this.output = false;
 
-    if (this.postRequest(this.baseUrl, this.postFields) == true) {
+    if (this.postRequest(this.baseUrl, this.postFields)) {
       if (this.result.contains("Your input is ambiguous")) {
         this.ambiguous = true;
         this.prepareSelectBoxes();
@@ -297,7 +387,14 @@ public class WebHelper {
     }
   }
 
-  public String getKey(String value, ArrayList<String[]> list) {
+  /**
+   * Get key.
+   *
+   * @param value the value
+   * @param list the list
+   * @return the result
+   */
+  public String getKey(final String value, final ArrayList<String[]> list) {
     for (int y = 0; y < list.size(); y++) {
       if (list.get(y)[1].compareTo(value) == 0) {
         Log.e("Found", list.get(y)[0]);
@@ -310,16 +407,16 @@ public class WebHelper {
 
   private void prepareConnectionsList() {
     int i = 0;
-    while (i < 7) {
+    while (i < MAX_LATER_PAGES) {
       String nextUrl = "";
       Pattern laterRegex =
           Pattern.compile(
-              "<a[^>]*>later(.*?)</a>",
+              "<a[^>]*+>later((?:[^<]++|<(?!/a>))*+)</a>",
               Pattern.CASE_INSENSITIVE | Pattern.DOTALL | Pattern.MULTILINE);
       Matcher later = laterRegex.matcher(this.result);
 
       while (later.find()) {
-        String parts[] = later.group().split("\"");
+        String[] parts = later.group().split("\"");
         nextUrl = parts[1];
         break;
       }
@@ -330,31 +427,31 @@ public class WebHelper {
         break;
       }
 
-      if (this.getRequest(nextUrl) == true) {}
+      this.getRequest(nextUrl);
     }
 
     Pattern connectionsRegex =
         Pattern.compile(
-            "<table[^>]*>(.*?)</table>",
+            "<table[^>]*+>((?:[^<]++|<(?!/table>))*+)</table>",
             Pattern.CASE_INSENSITIVE | Pattern.DOTALL | Pattern.MULTILINE);
-    Matcher connections = connectionsRegex.matcher(this.result);
+    Matcher connMatcher = connectionsRegex.matcher(this.result);
 
     this.connections = new ArrayList<Connection>();
 
-    while (connections.find()) {
+    while (connMatcher.find()) {
       if (connections.group().contains("summary=\"Connections overview\"")) {
         Pattern rowsRegex =
             Pattern.compile(
-                "<tr[^>]*>(.*?)</tr>",
+                "<tr[^>]*+>((?:[^<]++|<(?!/tr>))*+)</tr>",
                 Pattern.CASE_INSENSITIVE | Pattern.DOTALL | Pattern.MULTILINE);
-        Matcher rows = rowsRegex.matcher(connections.group());
+        Matcher rows = rowsRegex.matcher(connMatcher.group());
 
         while (rows.find()) {
           int col = 0;
 
           Pattern colsRegex =
               Pattern.compile(
-                  "<td[^>]*>(.*?)</td>",
+                  "<td[^>]*+>((?:[^<]++|<(?!/td>))*+)</td>",
                   Pattern.CASE_INSENSITIVE | Pattern.DOTALL | Pattern.MULTILINE);
           Matcher cols = colsRegex.matcher(rows.group());
 
@@ -373,15 +470,15 @@ public class WebHelper {
               String[] places = td.split("<br />");
               sFrom = this.removeHTML(places[0]);
               sTo = this.removeHTML(places[1]);
-            } else if (col == 3) {
+            } else if (col == COL_DEPARTURE) {
               sdate = this.removeHTML(td);
-            } else if (col == 5) {
+            } else if (col == COL_ARRIVAL) {
               String[] times = td.split("<br />");
               sdeparture = this.removeHTML(times[0]);
               sarrival = this.removeHTML(times[1]);
-            } else if (col == 7) {
+            } else if (col == COL_DURATION) {
               sduration = this.removeHTML(td);
-            } else if (col == 8) {
+            } else if (col == COL_CHANGES) {
               schanges = this.removeHTML(td);
             }
 
@@ -400,7 +497,18 @@ public class WebHelper {
     }
   }
 
-  public boolean searchConnection(String date, String from, String to, String time, int seq) {
+  /**
+   * Search connection.
+   *
+   * @param date the date
+   * @param from the from
+   * @param to the to
+   * @param time the time
+   * @param seq the seq
+   * @return the result
+   */
+  public boolean searchConnection(
+      final String date, final String from, final String to, final String time, final int seq) {
     this.ambiguous = false;
 
     this.postFields = new ArrayList<NameValuePair>();
@@ -423,7 +531,7 @@ public class WebHelper {
 
     this.output = false;
 
-    if (this.postRequest(this.sequenceUrl, this.postFields) == true) {
+    if (this.postRequest(this.sequenceUrl, this.postFields)) {
       if (this.result.contains("Your input is ambiguous")) {
         this.ambiguous = true;
         this.prepareSelectBoxes();
@@ -438,10 +546,20 @@ public class WebHelper {
     }
   }
 
+  /**
+   * Is ambiguous.
+   *
+   * @return the result
+   */
   public boolean isAmbiguous() {
     return this.ambiguous;
   }
 
+  /**
+   * Getfrom list.
+   *
+   * @return the result
+   */
   public String[] getfromList() {
     String[] types = new String[this.fromList.size()];
 
@@ -452,6 +570,11 @@ public class WebHelper {
     return types;
   }
 
+  /**
+   * Getto list.
+   *
+   * @return the result
+   */
   public String[] gettoList() {
     String[] types = new String[this.toList.size()];
 
@@ -462,26 +585,55 @@ public class WebHelper {
     return types;
   }
 
+  /**
+   * Get connections.
+   *
+   * @return the result
+   */
   public ArrayList<Connection> getConnections() {
-    if (this.connections == null) return new ArrayList<Connection>();
+    if (this.connections == null) {
+      return new ArrayList<Connection>();
+    }
 
     return this.connections;
   }
 
+  /**
+   * Get connections count.
+   *
+   * @return the result
+   */
   public int getConnectionsCount() {
-    if (this.connections == null) return 0;
+    if (this.connections == null) {
+      return 0;
+    }
 
     return this.connections.size();
   }
 
+  /**
+   * Get last to.
+   *
+   * @return the result
+   */
   public String getLastTo() {
     return lastTo;
   }
 
+  /**
+   * Get last from.
+   *
+   * @return the result
+   */
   public String getLastFrom() {
     return lastFrom;
   }
 
+  /**
+   * Has connections.
+   *
+   * @return the result
+   */
   public boolean hasConnections() {
     return this.connectionsList;
   }
