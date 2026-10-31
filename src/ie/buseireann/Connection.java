@@ -1,98 +1,183 @@
 package ie.buseireann;
 
-public class Connection
-{
-	private String placeFrom;
-	private String placeTo;
-	private String timeArrival;
-	private String timeDeparture;
-	private String duration;
-	private String changes;
-	private String date;
-	
-	public Connection()
-	{
-		
-	}
-	
-	public Connection( String placeFrom , String placeTo , String timeArrival , String timeDeparture , String duration , String changes , String date )
-	{
-		this.placeFrom = placeFrom;
-		this.placeTo = placeTo;
-		this.timeArrival = timeArrival;
-		this.timeDeparture = timeDeparture;
-		this.duration = duration;
-		this.changes = changes;
-		this.date = date;
-	}
+public final class Connection {
+  /** The placeFrom. */
+  private String placeFrom;
 
-	public String getPlaceFrom()
-	{
-		return this.placeFrom;
-	}
+  /** The placeTo. */
+  private String placeTo;
 
-	public void setPlaceFrom( String placeFrom )
-	{
-		this.placeFrom = placeFrom;
-	}
+  /** The timeArrival. */
+  private String timeArrival;
 
-	public String getPlaceTo()
-	{
-		return this.placeTo;
-	}
+  /** The timeDeparture. */
+  private String timeDeparture;
 
-	public void setPlaceTo( String placeTo )
-	{
-		this.placeTo = placeTo;
-	}
+  /** The duration. */
+  private String duration;
 
-	public String getTimeArrival()
-	{
-		return this.timeArrival;
-	}
+  /** The changes. */
+  private String changes;
 
-	public void setTimeArrival( String timeArrival )
-	{
-		this.timeArrival = timeArrival;
-	}
+  /** The date. */
+  private String date;
 
-	public String getTimeDeparture()
-	{
-		return this.timeDeparture;
-	}
+  /** Connection. */
+  public Connection() {
+    this("", "", "", "", "", "", "");
+  }
 
-	public void setTimeDeparture( String timeDeparture )
-	{
-		this.timeDeparture = timeDeparture;
-	}
+  /**
+   * Connection.
+   *
+   * @param newPlaceFrom the place from
+   * @param newPlaceTo the place to
+   * @param newTimeArrival the time arrival
+   * @param newTimeDeparture the time departure
+   * @param newDuration the duration
+   * @param newChanges the changes
+   * @param newDate the date
+   */
+  public Connection(
+      final String newPlaceFrom,
+      final String newPlaceTo,
+      final String newTimeArrival,
+      final String newTimeDeparture,
+      final String newDuration,
+      final String newChanges,
+      final String newDate) {
+    this.placeFrom = newPlaceFrom;
+    this.placeTo = newPlaceTo;
+    this.timeArrival = newTimeArrival;
+    this.timeDeparture = newTimeDeparture;
+    this.duration = newDuration;
+    this.changes = newChanges;
+    this.date = newDate;
+  }
 
-	public String getDuration()
-	{
-		return this.duration;
-	}
+  /**
+   * Get place from.
+   *
+   * @return the result
+   */
+  public String getPlaceFrom() {
+    return this.placeFrom;
+  }
 
-	public void setDuration( String duration )
-	{
-		this.duration = duration;
-	}
+  /**
+   * Set place from.
+   *
+   * @param newPlaceFrom the place from
+   */
+  public void setPlaceFrom(final String newPlaceFrom) {
+    this.placeFrom = newPlaceFrom;
+  }
 
-	public String getChanges()
-	{
-		return this.changes;
-	}
+  /**
+   * Get place to.
+   *
+   * @return the result
+   */
+  public String getPlaceTo() {
+    return this.placeTo;
+  }
 
-	public void setChanges( String changes )
-	{
-		this.changes = changes;
-	}
+  /**
+   * Set place to.
+   *
+   * @param newPlaceTo the place to
+   */
+  public void setPlaceTo(final String newPlaceTo) {
+    this.placeTo = newPlaceTo;
+  }
 
-	public String getDate()
-	{
-		return this.date;
-	}
+  /**
+   * Get time arrival.
+   *
+   * @return the result
+   */
+  public String getTimeArrival() {
+    return this.timeArrival;
+  }
 
-	public void setDate( String date )
-	{
-		this.date = date;
-	}
+  /**
+   * Set time arrival.
+   *
+   * @param newTimeArrival the time arrival
+   */
+  public void setTimeArrival(final String newTimeArrival) {
+    this.timeArrival = newTimeArrival;
+  }
+
+  /**
+   * Get time departure.
+   *
+   * @return the result
+   */
+  public String getTimeDeparture() {
+    return this.timeDeparture;
+  }
+
+  /**
+   * Set time departure.
+   *
+   * @param newTimeDeparture the time departure
+   */
+  public void setTimeDeparture(final String newTimeDeparture) {
+    this.timeDeparture = newTimeDeparture;
+  }
+
+  /**
+   * Get duration.
+   *
+   * @return the result
+   */
+  public String getDuration() {
+    return this.duration;
+  }
+
+  /**
+   * Set duration.
+   *
+   * @param newDuration the duration
+   */
+  public void setDuration(final String newDuration) {
+    this.duration = newDuration;
+  }
+
+  /**
+   * Get changes.
+   *
+   * @return the result
+   */
+  public String getChanges() {
+    return this.changes;
+  }
+
+  /**
+   * Set changes.
+   *
+   * @param newChanges the changes
+   */
+  public void setChanges(final String newChanges) {
+    this.changes = newChanges;
+  }
+
+  /**
+   * Get date.
+   *
+   * @return the result
+   */
+  public String getDate() {
+    return this.date;
+  }
+
+  /**
+   * Set date.
+   *
+   * @param newDate the date
+   */
+  public void setDate(final String newDate) {
+    this.date = newDate;
+  }
 }
