@@ -267,13 +267,13 @@ public final class WebHelper {
 
     Pattern selectRegex =
         Pattern.compile(
-            "<select[^>]*>(.*?)</select>",
+            "<select[^>]*+>((?:[^<]++|<(?!/select>))*+)</select>",
             Pattern.CASE_INSENSITIVE | Pattern.DOTALL | Pattern.MULTILINE);
     Matcher selects = selectRegex.matcher(this.result);
 
     Pattern fromHiddenRegex =
         Pattern.compile(
-            "<input type=\"hidden\" name=\"REQ0JourneyStopsS0K\" value=\"(.*?)\">",
+            "<input type=\"hidden\" name=\"REQ0JourneyStopsS0K\" value=\"([^\"]*+)\">",
             Pattern.CASE_INSENSITIVE | Pattern.DOTALL | Pattern.MULTILINE);
     Matcher fromHidden = fromHiddenRegex.matcher(this.result);
 
@@ -285,7 +285,7 @@ public final class WebHelper {
 
     Pattern toHiddenRegex =
         Pattern.compile(
-            "<input type=\"hidden\" name=\"REQ0JourneyStopsZ0K\" value=\"(.*?)\">",
+            "<input type=\"hidden\" name=\"REQ0JourneyStopsZ0K\" value=\"([^\"]*+)\">",
             Pattern.CASE_INSENSITIVE | Pattern.DOTALL | Pattern.MULTILINE);
     Matcher toHidden = toHiddenRegex.matcher(this.result);
 
@@ -298,7 +298,7 @@ public final class WebHelper {
     while (selects.find()) {
       Pattern optionRegex =
           Pattern.compile(
-              "<option[^>]*>(.*?)</option>",
+              "<option[^>]*+>((?:[^<]++|<(?!/option>))*+)</option>",
               Pattern.CASE_INSENSITIVE | Pattern.DOTALL | Pattern.MULTILINE);
       Matcher options = optionRegex.matcher(selects.group());
 
@@ -329,7 +329,7 @@ public final class WebHelper {
 
     Pattern formRegex =
         Pattern.compile(
-            "<form[^>]*>", Pattern.CASE_INSENSITIVE | Pattern.DOTALL | Pattern.MULTILINE);
+            "<form[^>]*+>", Pattern.CASE_INSENSITIVE | Pattern.DOTALL | Pattern.MULTILINE);
     Matcher form = formRegex.matcher(this.result);
 
     while (form.find()) {
@@ -411,7 +411,7 @@ public final class WebHelper {
       String nextUrl = "";
       Pattern laterRegex =
           Pattern.compile(
-              "<a[^>]*>later(.*?)</a>",
+              "<a[^>]*+>later((?:[^<]++|<(?!/a>))*+)</a>",
               Pattern.CASE_INSENSITIVE | Pattern.DOTALL | Pattern.MULTILINE);
       Matcher later = laterRegex.matcher(this.result);
 
@@ -432,7 +432,7 @@ public final class WebHelper {
 
     Pattern connectionsRegex =
         Pattern.compile(
-            "<table[^>]*>(.*?)</table>",
+            "<table[^>]*+>((?:[^<]++|<(?!/table>))*+)</table>",
             Pattern.CASE_INSENSITIVE | Pattern.DOTALL | Pattern.MULTILINE);
     Matcher connMatcher = connectionsRegex.matcher(this.result);
 
@@ -442,7 +442,7 @@ public final class WebHelper {
       if (connections.group().contains("summary=\"Connections overview\"")) {
         Pattern rowsRegex =
             Pattern.compile(
-                "<tr[^>]*>(.*?)</tr>",
+                "<tr[^>]*+>((?:[^<]++|<(?!/tr>))*+)</tr>",
                 Pattern.CASE_INSENSITIVE | Pattern.DOTALL | Pattern.MULTILINE);
         Matcher rows = rowsRegex.matcher(connMatcher.group());
 
@@ -451,7 +451,7 @@ public final class WebHelper {
 
           Pattern colsRegex =
               Pattern.compile(
-                  "<td[^>]*>(.*?)</td>",
+                  "<td[^>]*+>((?:[^<]++|<(?!/td>))*+)</td>",
                   Pattern.CASE_INSENSITIVE | Pattern.DOTALL | Pattern.MULTILINE);
           Matcher cols = colsRegex.matcher(rows.group());
 
