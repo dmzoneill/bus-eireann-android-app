@@ -205,7 +205,7 @@ public final class WebHelper {
 
   private String removeHTML(final String input) {
     String html = input.trim();
-    html = html.replaceAll("<[^>]*>", "");
+    html = html.replaceAll("<[^<>]*+>", "");
     html = html.trim();
     html = html.replaceAll("&nbsp;", "");
     html = html.trim();
