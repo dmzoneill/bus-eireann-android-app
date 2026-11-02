@@ -82,11 +82,9 @@ public final class EasySSLSocketFactory implements SocketFactory, LayeredSocketF
     SSLSocket sslsock = (SSLSocket) ((sock != null) ? sock : createSocket());
 
     if ((localAddress != null) || (localPort > 0)) {
-      // we need to bind explicitly
-      if (localPort < 0) {
-        localPort = 0; // indicates "any"
-      }
-      InetSocketAddress isa = new InetSocketAddress(localAddress, localPort);
+      // we need to bind explicitly; a negative port means "any", which is 0
+      int bindPort = Math.max(localPort, 0);
+      InetSocketAddress isa = new InetSocketAddress(localAddress, bindPort);
       sslsock.bind(isa);
     }
 
