@@ -4,6 +4,8 @@ import android.util.Log;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -43,6 +45,12 @@ public final class WebHelper {
 
   /** Index of the value attribute in a split hidden input tag. */
   private static final int HIDDEN_VALUE_INDEX = 5;
+
+  /** Scheme and host of the journey planner; followed links are rebuilt on this origin. */
+  private static final String PLANNER_ORIGIN = "http://194.106.151.94/";
+
+  /** Host of the journey planner. */
+  private static final String PLANNER_HOST = "194.106.151.94";
 
   /** Max later-result pages to follow. */
   private static final int MAX_LATER_PAGES = 7;
@@ -195,9 +203,9 @@ public final class WebHelper {
     return this.result;
   }
 
-  private String removeHTML(final String html) {
-    html = html.trim();
-    html = html.replaceAll("\\<.*?>", "");
+  private String removeHTML(final String input) {
+    String html = input.trim();
+    html = html.replaceAll("<[^>]*>", "");
     html = html.trim();
     html = html.replaceAll("&nbsp;", "");
     html = html.trim();
@@ -405,6 +413,29 @@ public final class WebHelper {
     return "";
   }
 
+  /**
+   * Return the path and query of a journey planner link, without the leading slash.
+   *
+   * @param link the link found in the planner page
+   * @return the path and query, or null when the link points anywhere but the planner host
+   */
+  private static String plannerPath(final String link) {
+    try {
+      URI uri = new URI(link);
+      if (!"http".equalsIgnoreCase(uri.getScheme())
+          || !PLANNER_HOST.equals(uri.getHost())
+          || uri.getPort() != -1
+          || uri.getRawPath() == null
+          || !uri.getRawPath().startsWith("/")) {
+        return null;
+      }
+      String query = uri.getRawQuery();
+      return uri.getRawPath().substring(1) + (query == null ? "" : "?" + query);
+    } catch (URISyntaxException e) {
+      return null;
+    }
+  }
+
   private void prepareConnectionsList() {
     int i = 0;
     while (i < MAX_LATER_PAGES) {
@@ -423,11 +454,12 @@ public final class WebHelper {
       i++;
 
       // Only follow "later" links that stay on the journey planner host.
-      if (!nextUrl.startsWith("http://194.106.151.94/")) {
+      String nextPath = plannerPath(nextUrl);
+      if (nextPath == null) {
         break;
       }
 
-      this.getRequest(nextUrl);
+      this.getRequest(PLANNER_ORIGIN + nextPath);
     }
 
     Pattern connectionsRegex =
